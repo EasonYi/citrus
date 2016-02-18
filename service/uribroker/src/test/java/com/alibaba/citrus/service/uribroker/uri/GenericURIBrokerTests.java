@@ -40,7 +40,7 @@ public class GenericURIBrokerTests extends AbstractURIBrokerFeaturesTests<Generi
     protected void setupParentBroker(GenericURIBroker parent) {
         super.setupParentBroker(parent);
 
-        parent.setURIType(URIType.absolute);
+        parent.setURITypeEx(URIType.absolute);
         parent.setBaseURI("http://www.alibaba.com/a/../hello/world");
         parent.setServerScheme("https");
         parent.setServerName("localhost");
@@ -58,7 +58,7 @@ public class GenericURIBrokerTests extends AbstractURIBrokerFeaturesTests<Generi
     protected void setupBroker(GenericURIBroker broker) {
         super.setupBroker(broker);
 
-        broker.setURIType(URIType.relative);
+        broker.setURITypeEx(URIType.relative);
         broker.setBaseURI("http://www.taobao.com//hello/world");
         broker.setServerScheme("http");
         broker.setServerName("taobao.com");
@@ -379,7 +379,7 @@ public class GenericURIBrokerTests extends AbstractURIBrokerFeaturesTests<Generi
         // with interceptor, URIType=relative
         broker.reset();
         broker.addQueryData("x", 1);
-        broker.setURIType(URIType.relative);
+        broker.setURITypeEx(URIType.relative);
         broker.setBaseURI("http://taobao.com/");
         broker.setServerURI("http://taobao.com/aaa/bbb/ccc");
         broker.addInterceptor(new URIBrokerPathInterceptor() {
@@ -976,7 +976,7 @@ public class GenericURIBrokerTests extends AbstractURIBrokerFeaturesTests<Generi
 
     @Test
     public void baseURI_request() {
-        broker.setURIType(URIType.absolute);
+        broker.setURITypeEx(URIType.absolute);
 
         // 以request作为baseURI, requestAware=false/true
         broker.setServerURI("http://www.taobao.com/hello/world/aaa/bbb/ccc.jsp");
@@ -1027,7 +1027,7 @@ public class GenericURIBrokerTests extends AbstractURIBrokerFeaturesTests<Generi
 
     @Test
     public void baseURI_path() {
-        broker.setURIType(URIType.absolute);
+        broker.setURITypeEx(URIType.absolute);
 
         // 设置request，但如有baseURI，则以baseURI为准
         broker.setServerURI("http://www.taobao.com/hello/world/aaa/bbb/ccc.jsp");
@@ -1090,7 +1090,7 @@ public class GenericURIBrokerTests extends AbstractURIBrokerFeaturesTests<Generi
         assertEquals(null, broker.getURIType());
         assertEquals("http://www.taobao.com/hello/world/aaa/bbb/ccc.jsp?test=value", broker.toString());
 
-        broker.setURIType(URIType.full);
+        broker.setURITypeEx(URIType.full);
         assertEquals("http://www.taobao.com/hello/world/aaa/bbb/ccc.jsp?test=value", broker.toString());
     }
 
@@ -1099,7 +1099,7 @@ public class GenericURIBrokerTests extends AbstractURIBrokerFeaturesTests<Generi
         broker.setBaseURI("http://www.taobao.com/hello/world/index.html");
         broker.setServerURI("http://www.taobao.com/hello/world/aaa/bbb/ccc.jsp");
         broker.addQueryData("test", "value");
-        broker.setURIType(URIType.absolute);
+        broker.setURITypeEx(URIType.absolute);
 
         assertEquals("/hello/world/aaa/bbb/ccc.jsp?test=value", broker.toString());
 
@@ -1122,7 +1122,7 @@ public class GenericURIBrokerTests extends AbstractURIBrokerFeaturesTests<Generi
         broker.setBaseURI("http://www.taobao.com/hello/world/index.html");
         broker.setServerURI("http://www.taobao.com/hello/world/aaa/bbb/ccc.jsp");
         broker.addQueryData("test", "value");
-        broker.setURIType(URIType.relative);
+        broker.setURITypeEx(URIType.relative);
 
         assertEquals("aaa/bbb/ccc.jsp?test=value", broker.toString());
 
@@ -1159,7 +1159,7 @@ public class GenericURIBrokerTests extends AbstractURIBrokerFeaturesTests<Generi
         broker.setBaseURI("http://www.taobao.com/hello/world/index.html");
         broker.setServerURI("http://www.taobao.com/hello/world/aaa/bbb/ccc.jsp");
         broker.addQueryData("test", "value");
-        broker.setURIType(URIType.auto);
+        broker.setURITypeEx(URIType.auto);
 
         assertEquals("aaa/bbb/ccc.jsp?test=value", broker.toString());
 
